@@ -1,0 +1,60 @@
+<AutoClickerLayout>:
+    Label:
+        text: "Auto Clicker"
+        font_size: '24sp'
+        bold: True
+        size_hint_y: 0.2
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.15
+        Label:
+            text: "Interval (s):"
+            size_hint_x: 0.4
+        Slider:
+            id: interval_slider
+            min: 0.1
+            max: 5.0
+            value: root.click_interval
+            on_value: root.click_interval = self.value
+        Label:
+            text: f"{root.click_interval:.1f}"
+            size_hint_x: 0.3
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.15
+        ToggleButton:
+            text: 'Start' if not root.is_clicking else 'Stop'
+            on_state: 
+                root.start_clicking() if self.state == 'down' else root.stop_clicking()
+            size_hint_x: 0.5
+        Button:
+            text: "Accessibility Info"
+            on_press: root.show_accessibility_info()
+            size_hint_x: 0.5
+
+    Label:
+        text: root.status_text
+        font_size: '18sp'
+        size_hint_y: 0.1
+        text_size: self.width, None
+        halign: 'center'
+
+    Label:
+        text: f"Total Clicks: {root.click_count}"
+        font_size: '16sp'
+        size_hint_y: 0.1
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.3
+        padding: 10
+        Label:
+            text: "Instructions:"
+            font_size: '16sp'
+            bold: True
+        Label:
+            text: "1. Set click interval with slider\n2. Press Start to begin clicking\n3. App clicks at screen center\n4. Requires accessibility permission"
+            font_size: '14sp'
+            text_size: self.width, None
